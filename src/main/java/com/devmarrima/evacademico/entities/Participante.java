@@ -1,10 +1,14 @@
 package com.devmarrima.evacademico.entities;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -28,6 +32,9 @@ public class Participante {
         this.nome = nome;
         this.email = email;
     }
+
+    @ManyToMany(mappedBy = "participantes")
+    public Set<Atividade> atividades = new HashSet<>();
 
     public Integer getId() {
         return id;

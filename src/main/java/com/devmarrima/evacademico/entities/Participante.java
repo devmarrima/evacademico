@@ -1,6 +1,7 @@
 package com.devmarrima.evacademico.entities;
 
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 import jakarta.persistence.Column;
@@ -12,7 +13,7 @@ import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "tb_partipante")
+@Table(name = "tb_participante")
 public class Participante {
 
     @Id
@@ -59,6 +60,27 @@ public class Participante {
     public void setEmail(String email) {
         this.email = email;
     }
+
+    public Set<Atividade> getAtividades() {
+        return atividades;
+    }
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(id);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Participante other = (Participante) obj;
+		return Objects.equals(id, other.id);
+	}
 
     
 

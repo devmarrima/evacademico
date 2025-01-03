@@ -3,6 +3,7 @@ package com.devmarrima.evacademico.entities;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 
 import jakarta.persistence.Column;
@@ -46,10 +47,12 @@ public class Atividade {
     private Categoria categoria;
 
     @OneToMany(mappedBy = "atividade")
-    public List<Bloco> bloco = new ArrayList<>();
+    public List<Bloco> blocos = new ArrayList<>();
 
     @ManyToMany
-    @JoinTable(name = "tb_atividade_participante", joinColumns = @JoinColumn(name = "atividade_id"), inverseJoinColumns = @JoinColumn(name = "participante_id"))
+    @JoinTable(name = "tb_atividade_participante",
+    joinColumns = @JoinColumn(name = "atividade_id"),
+    inverseJoinColumns = @JoinColumn(name = "participante_id"))
     public Set<Participante> participantes = new HashSet<>();
 
     public Integer getId() {
@@ -84,9 +87,40 @@ public class Atividade {
         this.preco = preco;
     }
 
-    public List<Bloco> getBloco() {
-        return bloco;
+    public List<Bloco> getBlocos() {
+        return blocos;
     }
+
+    public Categoria getCategoria() {
+        return categoria;
+    }
+
+    public Set<Participante> getParticipantes() {
+        return participantes;
+    }
+
+    public void setCategoria(Categoria categoria) {
+        this.categoria = categoria;
+    }
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(id);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Atividade other = (Atividade) obj;
+		return Objects.equals(id, other.id);
+	}
+
+    
     
 
 }
